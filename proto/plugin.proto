@@ -554,6 +554,11 @@ service Platform {
   rpc IsLogPlatform(google.protobuf.Empty) returns (ImplementsResp);
   rpc LogsSpec(google.protobuf.Empty) returns (FuncSpec);
   rpc Logs(FuncSpec.Args) returns (google.protobuf.Empty);
+
+  // component.Destroyer optional implementation
+  rpc IsStatusReport(google.protobuf.Empty) returns (ImplementsResp);
+  rpc StatusReportSpec(google.protobuf.Empty) returns (FuncSpec);
+  rpc StatusReport(FuncSpec.Args) returns (google.protobuf.Empty);
 }
 
 message DefaultReleaser {
