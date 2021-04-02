@@ -92,7 +92,7 @@ message Args {
     }
   }
 
-  // LabelSet is a set of labels for anything that can be labelled, such
+  // LabelSet is a set of labels for anything that can be labeled, such
   // as a deployment, build, etc.
   message LabelSet {
     map<string, string> labels = 1;
@@ -101,7 +101,7 @@ message Args {
   // ExecSessionInfo is used to send the information about an exec plugin
   // session.
   message ExecSessionInfo {
-    // bidirection usd for stdin and stdout
+    // bidirectional usd for stdin and stdout
     uint32 stream_id = 1;
 
     // The arguments to the command (includes the command itself)
@@ -616,7 +616,7 @@ message Push {
 * Release Plugin Service
 ********************************************************************/
 
-// ReleaseManager is a serivce that handles the process of exposing
+// ReleaseManager is a service that handles the process of exposing
 // a deployment to traffic.
 service ReleaseManager {
   rpc IsAuthenticator(google.protobuf.Empty) returns (ImplementsResp);
@@ -662,7 +662,7 @@ message Release {
 * Config Sourcer Plugin Service
 ********************************************************************/
 
-// ConfigSourcer is a serivce that reads configuration for the application.
+// ConfigSourcer is a service that reads configuration for the application.
 service ConfigSourcer {
   rpc ConfigStruct(google.protobuf.Empty) returns (Config.StructResp);
   rpc Configure(Config.ConfigureRequest) returns (google.protobuf.Empty);
