@@ -62,7 +62,7 @@ func (p *PlatformPlugin) GRPCServer(broker *plugin.GRPCBroker, s *grpc.Server) e
 			base: base,
 			Impl: p.Impl,
 		},
-		statusReportServer: &statusReportServer{
+		statusServer: &statusServer{
 			base: base,
 			Impl: p.Impl,
 		},
@@ -158,18 +158,18 @@ func (p *PlatformPlugin) GRPCClient(
 		execer = nil
 	}
 
-	statusReport := &statusReportClient{
+	status := &statusClient{
 		Client:  client.client,
 		Logger:  client.logger,
 		Broker:  client.broker,
 		Mappers: client.mappers,
 	}
-	if ok, err := statusReport.Implements(ctx); err != nil {
+	if ok, err := status.Implements(ctx); err != nil {
 		return nil, err
 	} else if ok {
-		p.Logger.Info("platform plugin capable of statusReport")
+		p.Logger.Info("platform plugin capable of status")
 	} else {
-		statusReport = nil
+		status = nil
 	}
 
 	// Figure out what we're returning
@@ -186,7 +186,7 @@ func (p *PlatformPlugin) GRPCClient(
 			Documented:         client,
 			Execer:             execer,
 			LogPlatform:        log,
-			StatusReport:       statusReport,
+			Status:             status,
 		}
 	case execer != nil:
 		result = &mix_Platform_Exec{
@@ -197,7 +197,7 @@ func (p *PlatformPlugin) GRPCClient(
 			Execer:             execer,
 			Documented:         client,
 			LogPlatform:        log,
-			StatusReport:       statusReport,
+			Status:             status,
 		}
 	default:
 		result = &mix_Platform_Authenticator{
@@ -208,7 +208,7 @@ func (p *PlatformPlugin) GRPCClient(
 			WorkspaceDestroyer: wsDestroyer,
 			Documented:         client,
 			LogPlatform:        log,
-			StatusReport:       statusReport,
+			Status:             status,
 		}
 	}
 
@@ -343,7 +343,7 @@ type platformServer struct {
 	*authenticatorServer
 	*execerServer
 	*logPlatformServer
-	*statusReportServer
+	*statusServer
 
 	Impl component.Platform
 }

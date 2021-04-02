@@ -12,7 +12,7 @@ type mix_Platform_Authenticator struct {
 	component.PlatformReleaser
 	component.WorkspaceDestroyer
 	component.LogPlatform
-	component.StatusReport
+	component.Status
 }
 
 type mix_Platform_Destroy struct {
@@ -25,7 +25,7 @@ type mix_Platform_Destroy struct {
 	component.LogPlatform
 	component.Destroyer
 	component.WorkspaceDestroyer
-	component.StatusReport
+	component.Status
 }
 
 type mix_Platform_Exec struct {
@@ -36,5 +36,5 @@ type mix_Platform_Exec struct {
 	component.PlatformReleaser
 	component.LogPlatform
 	component.Execer
-	component.StatusReport
+	component.Status
 }

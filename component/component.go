@@ -229,10 +229,10 @@ type Release interface {
 // StatusReport can be implemented by Platform and PlatformReleaser to query
 // the target platform and build a report of the current deployments health. If
 // this isn't implemented, no status report will be built for the deployments.
-type StatusReport interface {
+type Status interface {
 	// StatusReportFunc should return a Status struct that details the result of
 	// the most recent health check for a deployment.
-	StatusReportFunc() interface{}
+	StatusFunc() interface{}
 }
 
 // Template can be implemented by Artifact, Deployment, and Release. This
