@@ -271,6 +271,53 @@ message ImplementsResp {
   bool implements = 1;
 }
 
+/********************************************************************
+* Status Report Messages
+********************************************************************/
+
+// StatusReport is the report genrated when querying the overall health of
+// a deployed or released application. This report can be either generated
+// by querying the platform itself which has performed the health checks,
+// or by Waypoint running user-defined health checks.
+message StatusReport {
+  // a collection of resources for a deployed application
+  repeated Resource resources = 1;
+
+  // the state of overall health of a deployed application
+  enum Health {
+    ALIVE = 0;
+    READY = 1;
+    DOWN = 2;
+    UNKNOWN = 3;
+    ISSUES = 4;
+  }
+
+  // a simple human readable message detailing the Health state
+  string health_message = 2;
+
+  // the time when this report was generated
+  string timestamp = 3;
+
+  // where the health check was performed. External means not executed by Waypoint,
+  // but buy the platform deployed to.
+  bool external = 4;
+
+  message Resource {
+    // the reosurce name
+    string name = 1;
+
+    // the state of health for a given resource
+    enum Health {
+      ALIVE = 0;
+      READY = 1;
+      DOWN = 2;
+      UNKNOWN = 3;
+    }
+
+    // a simple human readable message detailing the Health state
+    string health_message = 2;
+  }
+}
 
 /********************************************************************
 * Exec Service
@@ -698,4 +745,3 @@ message ConfigSource {
     }
   }
 }
-
